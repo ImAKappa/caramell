@@ -15,7 +15,7 @@ const LINE_OF_FIFTHS: &[&str] = &[
     "F##", "C##", "G##", "D##", "A##", "E##", "B##",
 ];
 
-/// PitchClass accordin to 7-tone pitch space
+/// PitchClass according to 7-tone pitch space
 /// The order of the variants is important;
 /// each subsequent variant a Perfect 5th (P5) above the previous one
 /// For example, the interval from F to C is a P5
