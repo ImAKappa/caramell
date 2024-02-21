@@ -1,4 +1,5 @@
-use crate::{WHOLE_STEP, HALF_STEP};
+use crate::{HALF_STEP, WHOLE_STEP};
+use std::fmt;
 
 /// Pitch-related functionality
 
@@ -8,11 +9,9 @@ const PITCH_SPACE_SIZE: usize = 7;
 
 const PITCH_POSITION_OFFSET: usize = 14;
 const LINE_OF_FIFTHS: &[&str] = &[
-    "Fbb", "Cbb", "Gbb", "Dbb", "Abb", "Ebb", "Bbb",
-    "Fb", "Cb", "Gb", "Db", "Ab", "Eb", "Bb",
-    "F", "C", "G", "D", "A", "E", "B",
-    "F#", "C#", "G#", "D#", "A#", "E#", "B#",
-    "F##", "C##", "G##", "D##", "A##", "E##", "B##",
+    "Fbb", "Cbb", "Gbb", "Dbb", "Abb", "Ebb", "Bbb", "Fb", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F",
+    "C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#", "E#", "B#", "F##", "C##", "G##",
+    "D##", "A##", "E##", "B##",
 ];
 
 /// PitchClass according to 7-tone pitch space
@@ -55,7 +54,7 @@ impl PitchClass {
             "E" => Ok(Self::E),
             "F" => Ok(Self::F),
             "G" => Ok(Self::G),
-            _ => Err("unknown pitch".to_string())
+            _ => Err("unknown pitch".to_string()),
         }
     }
 
@@ -68,20 +67,16 @@ impl PitchClass {
             4 => Ok(Self::A),
             5 => Ok(Self::E),
             6 => Ok(Self::B),
-            _ => Err(format!("expected int 0..6, cannot map int '{i}' to PitchClass"))
+            _ => Err(format!(
+                "expected int 0..6, cannot map int '{i}' to PitchClass"
+            )),
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        match &self {
-            Self::A => "A".to_string(),
-            Self::B => "B".to_string(),
-            Self::C => "C".to_string(),
-            Self::D => "D".to_string(),
-            Self::E => "E".to_string(),
-            Self::F => "F".to_string(),
-            Self::G => "G".to_string(),
-        }
+impl fmt::Display for PitchClass {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
     }
 }
 
@@ -93,18 +88,14 @@ impl Accidental {
             "♮" => Ok(Self::Natural),
             "b" => Ok(Self::Flat),
             "bb" => Ok(Self::DoubleFlat),
-            _ => Err("unknown accidental".to_string())
+            _ => Err("unknown accidental".to_string()),
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        match &self {
-            Self::DoubleSharp => "##".to_string(),
-            Self::Sharp => "#".to_string(),
-            Self::Natural => "♮".to_string(),
-            Self::Flat => "b".to_string(),
-            Self::DoubleFlat => "bb".to_string(),
-        }
+impl fmt::Display for Accidental {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
     }
 }
 
@@ -118,11 +109,11 @@ impl Note {
     pub fn new(s: &str) -> Result<Self, String> {
         let pitch = PitchClass::new(&s[0..1])?;
         let accidental = if s.len() > 1 {
-                Some(Accidental::new(&s[1..])?)
-        } else { 
-            None 
+            Some(Accidental::new(&s[1..])?)
+        } else {
+            None
         };
-        Ok(Self { pitch, accidental, })
+        Ok(Self { pitch, accidental })
     }
 
     /// Determines position of tonal pitch class along the line of fifths
@@ -139,15 +130,15 @@ impl Note {
     pub fn transpose(&self, half_steps: i32) -> Note {
         todo!("transpose method in progress");
     }
+}
 
-    pub fn to_string(&self) -> String {
+impl fmt::Display for Note {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let accidental = match &self.accidental {
             Some(a) => a.to_string(),
             None => "".to_string(),
         };
-        format!("{}{}", &self.pitch.to_string(), accidental)
-        // let idx = (self.position() + PITCH_POSITION_OFFSET as i32) as usize; 
-        // LINE_OF_FIFTHS[idx].to_string()
+        write!(f, "{}{}", &self.pitch.to_string(), accidental)
     }
 }
 
@@ -169,8 +160,20 @@ mod tests {
 
     #[test]
     fn parse_note() {
-        assert_eq!(Note::new("C#"), Ok(Note { pitch: PitchClass::C, accidental: Some(Accidental::Sharp) }));
-        assert_eq!(Note::new("G"), Ok(Note { pitch: PitchClass::G, accidental: None}));
+        assert_eq!(
+            Note::new("C#"),
+            Ok(Note {
+                pitch: PitchClass::C,
+                accidental: Some(Accidental::Sharp)
+            })
+        );
+        assert_eq!(
+            Note::new("G"),
+            Ok(Note {
+                pitch: PitchClass::G,
+                accidental: None
+            })
+        );
         assert_eq!(Note::new("$"), Err("unknown pitch".to_string()));
         assert_eq!(Note::new("E%"), Err("unknown accidental".to_string()));
     }

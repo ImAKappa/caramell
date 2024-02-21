@@ -18,7 +18,10 @@ pub struct Chord {
 impl Chord {
     pub fn new(s: &str) -> Result<Self, String> {
         Ok(Chord {
-            root: Note { pitch: PitchClass::C, accidental: None, },
+            root: Note {
+                pitch: PitchClass::C,
+                accidental: None,
+            },
             quality: ChordQuality::Major,
         })
     }
@@ -39,13 +42,15 @@ mod tests {
 
     #[test]
     fn parse_root_chord() {
-        assert_eq!(Chord::new("C"),
-            Ok(
-                Chord { 
-                    root: Note { pitch: PitchClass::C, accidental: None },
-                    quality: ChordQuality::Major,
-                }
-            )
+        assert_eq!(
+            Chord::new("C"),
+            Ok(Chord {
+                root: Note {
+                    pitch: PitchClass::C,
+                    accidental: None
+                },
+                quality: ChordQuality::Major,
+            })
         );
     }
 }

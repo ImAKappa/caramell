@@ -4,7 +4,10 @@ use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
 pub enum Token {
-    #[regex(r"[A-G](b|#)?(mMaj|Maj|min|m|sus|dim|aug)?(1[0-2]|[1-9])?(/[A-G](b|#)?)?", priority=2)]
+    #[regex(
+        r"[A-G](b|#)?(mMaj|Maj|min|m|sus|dim|aug)?(1[0-2]|[1-9])?(/[A-G](b|#)?)?",
+        priority = 2
+    )]
     Chord,
 
     #[token("[")]
@@ -30,12 +33,10 @@ mod tests {
         assert_eq!(lex.slice(), &s);
     }
 
-    
     #[test]
     fn lex_newline() {
         check("\n".to_string(), Token::NewLine);
         check("\r\n".to_string(), Token::NewLine);
-
     }
 
     #[test]
@@ -117,6 +118,13 @@ mod tests {
         check("Cdim".to_string(), Token::Chord);
         check("C#dim".to_string(), Token::Chord);
         check("Cbdim".to_string(), Token::Chord);
+    }
+
+    #[test]
+    fn lex_diminished_7th_chords() {
+        check("Cdim7".to_string(), Token::Chord);
+        check("C#dim7".to_string(), Token::Chord);
+        check("Cbdim7".to_string(), Token::Chord);
     }
 
     #[test]
