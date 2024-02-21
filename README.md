@@ -2,6 +2,8 @@
 
 Caramell is a simple lead sheet generator, loosely based on the [chordpro](https://www.chordpro.org/chordpro/chordpro-introduction/) specification.
 
+See [https://playingchordcharts.com/chords#notation](https://playingchordcharts.com/chords#notation) for more details on chord notation
+
 # (Proposed) Features
 
 Input:

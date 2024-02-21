@@ -5,6 +5,10 @@
 Parse a space-separated list of simple chords.
 ('Simple' chords means no accidentals, no altered bass note, etc.)
 
+Goals:
+
+- [ ] Output a plain-text lyric text file that is formatted with the chords above the corresponding in the lyrics
+
 ## Phase 2: Interesting Chords
 
 Parse more complex chords
