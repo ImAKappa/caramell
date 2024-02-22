@@ -1,6 +1,7 @@
 use crate::lexer::Token;
 use logos::Logos;
-use std::{collections::HashMap, hash::Hash};
+use std::collections::BTreeMap;
+use std::fmt;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Chord {
@@ -10,6 +11,12 @@ pub struct Chord {
 impl Chord {
     pub fn new(s: String) -> Self {
         Self { chord: s }
+    }
+}
+
+impl fmt::Display for Chord {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.chord)
     }
 }
 
@@ -43,15 +50,29 @@ impl Phrase {
     }
 }
 
+impl fmt::Display for Phrase {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if let Some(chord) = &self.chord {
+            write!(
+                f,
+                "Phrase@{}..{} [{}] {}",
+                self.start, self.end, chord, self.lyrics
+            )
+        } else {
+            write!(f, "Phrase@{}..{} {}", self.start, self.end, self.lyrics)
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Clone)]
 pub struct Lines {
-    pub lines: HashMap<usize, Vec<Phrase>>,
+    pub lines: BTreeMap<usize, Vec<Phrase>>,
 }
 
 impl Lines {
     pub fn new() -> Self {
         Self {
-            lines: HashMap::new(),
+            lines: BTreeMap::new(),
         }
     }
 
@@ -60,6 +81,15 @@ impl Lines {
             phrases.push(phrase);
         } else {
             self.lines.insert(line, vec![phrase]);
+        }
+    }
+
+    pub fn debug_print(&self) {
+        for (line, phrases) in self.lines.iter() {
+            println!("Line {line}:");
+            for p in phrases {
+                println!("  {p}");
+            }
         }
     }
 }
@@ -112,7 +142,7 @@ mod tests {
         lines.add_phrase(0, Phrase::new("Hi".to_string(), 0, 0, None));
         assert_eq!(
             lines.lines,
-            HashMap::from([(0 as usize, vec![Phrase::new("Hi".to_string(), 0, 0, None)])])
+            BTreeMap::from([(0 as usize, vec![Phrase::new("Hi".to_string(), 0, 0, None)])])
         )
     }
 
@@ -121,7 +151,7 @@ mod tests {
         assert_eq!(
             parse("[C][G][Am][F]".to_string()),
             Ok(Lines {
-                lines: HashMap::from([(
+                lines: BTreeMap::from([(
                     0,
                     vec![
                         Phrase::new("".to_string(), 0, 0, None,),
@@ -144,7 +174,7 @@ Never gonna [Fm7]let you [Bbm]down"#
                     .to_string()
             ),
             Ok(Lines {
-                lines: HashMap::from([
+                lines: BTreeMap::from([
                     (
                         0,
                         vec![
