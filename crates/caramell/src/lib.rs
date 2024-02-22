@@ -10,8 +10,8 @@ const WHOLE_STEP: isize = HALF_STEP * 2;
 
 pub fn print(song: String) {
     match parser::parse(song) {
-        Ok(phrases) => {
-            for p in phrases {
+        Ok(lines) => {
+            for p in lines.lines.iter() {
                 println!("{:?}", p);
             }
         }
