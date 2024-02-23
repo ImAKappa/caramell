@@ -1,50 +1,51 @@
 # caramell
 
-Caramell is a simple lead sheet generator, loosely based on the [chordpro](https://www.chordpro.org/chordpro/chordpro-introduction/) specification.
+Caramell is a lyric and chord sheet formatter.
+At the moment, it can take this:
 
-See [https://playingchordcharts.com/chords#notation](https://playingchordcharts.com/chords#notation) for more details on chord notation
+```
+Never gonna [Ebm9]give you [Ab]up
+Never gonna [Fm7]let you [Bbm]down
+Never gonna [Ebm9]run a[Ab]round and de-[Fm7]sert [Bbm]you
+```
 
-# (Proposed) Features
+And turn it into this:
 
-Input:
+```text
+            Ebm9     Ab
+Never gonna give you up
+            Fm7     Bbm
+Never gonna let you down
+            Ebm9 Ab           Fm7  Bbm
+Never gonna run around and de-sert you
+```
 
-* Chords
-    - [ ] Major
-    - [ ] Minor
-    - [ ] Sharps (`#`), Flats (`b`)
-    - [ ] Numbers (7th, 9th, etc. caramell won't check if the chords make sense)
-* Metadata
-    - [ ] title
-    - [ ] subtitle
-    - [ ] artist
-    - [ ] composer
-    - [ ] year
-    - [ ] key 
-    - [ ] tempo
-    - [ ] time signature
-    - [ ] duration
-    - [ ] capo
-* Environments
-    - [ ] start_of_chorus (short: `soc`)
-    - [ ] end_of_chorus (short: `eoc`)
+## Motivation
 
-Output:
+This was just a fun coding project to learn about 1) lexing, parsing, etc. and 2) algorithms for musical transposition. In my opinion, this tool isn't very practically useful so much as it is pedagogically useful.
 
-- [ ] Plaintext
-- [ ] PDF
+- It's a lot faster to just write out the lyrics and chords in Word or other text editor,
+even if lining up the words and chords can get kind of annoying.
+- As for transposition, I find it's a much more useful skill to be able to transpose on the fly with your instrument, rather than rely on a computer to do it for your lyric and chord sheets.
 
-## Dev
+## Inspiration
 
-Inspiration:
-
-* [(Github)](https://github.com/ChordPro/chordpro)
+* [(Github) ChordPro/chordpro](https://github.com/ChordPro/chordpro)
 * [(GitHub) joseluiscd/chordpro-rs](https://github.com/joseluiscd/chordpro-rs)
 
-## Theory
+## Music Theory
 
-[Music Transposition in Musescore](https://davidbolton.info/articles/interval-transposition-in-musescore/)
+### Notation
+
+See [https://playingchordcharts.com/chords#notation](https://playingchordcharts.com/chords#notation) for more details on chord notation.
+
+Some ideas were also taken from the [ChordPro](https://www.chordpro.org/chordpro/chordpro-introduction/) specification.
 
 [Gallery of Interesting Music Notation](https://homes.luddy.indiana.edu/donbyrd/InterestingMusicNotation.html)
+
+### Transposition
+
+[Music Transposition in Musescore](https://davidbolton.info/articles/interval-transposition-in-musescore/)
 
 [Algorithm for Transposing Chords](https://music.stackexchange.com/questions/40041/algorithm-for-transposing-chords-between-keys)
 

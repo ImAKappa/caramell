@@ -28,7 +28,9 @@ Completed Feb 21, 2024
 
 ### Stage B: Plain-Text Output
 
-- [ ] Output a plain-text lyric text file that is formatted with the chords above the corresponding in the lyrics
+- [X] Output a plain-text lyric text file that is formatted with the chords above the corresponding in the lyrics
+
+Completed Feb 22, 2024
 
 ### Stage C: First Release on GitHub
 
@@ -42,7 +44,7 @@ Goals:
 
 Goals: 
 
-- [ ] Output Typst file
+- [ ] Output Typst file (see [Typst GitHub repo](https://github.com/typst/typst))
 - [ ] Render Typst file as PDF
 
 ### Stage B: Nicer CLI
@@ -59,7 +61,24 @@ Goals:
 - [ ] Second release as command line tool on GitHub
 - [ ] Setup automated testing for Continuous Integration
 
-## Phase 3: Internal Upgrades
+## Phase 3: Transposition
+
+### Stage A: Additional internals to support transposition
+
+Goals:
+
+- [ ] Automatic transposition between 12 major and 12 minor keys
+- [ ] Option to specify transposition by semitones
+- [ ] Option to specify transposition by new key
+
+### Stage B: Third release on GitHub
+
+Goals:
+
+- [ ] Third release as command line tool on GitHub
+
+
+## Phase 4: Internal Upgrades
 
 ### Stage A: Upgraded Lexer & Parser
 
@@ -99,28 +118,15 @@ Goals:
     - [ ] Double flat (`bb`)
   - [ ] Quartal chords
 
-### Stage D: Third release on GitHub
+### Stage D: Multi-lingual Lyrics
 
-Goals:
+- [ ] Update lyric lexing to support unicode code-points
 
-- [ ] Third release as command line tool on GitHub
-
-## Phase 4: Transposition
-
-### Stage A: Additional internals to support transposition
-
-Goals:
-
-- [ ] Automatic transposition between 12 major and 12 minor keys
-- [ ] Option to specify transposition by semitones
-- [ ] Option to specify transposition by new key
-
-### Stage B: Fourth release on GitHub
+### Stage E: Fourth release on GitHub
 
 Goals:
 
 - [ ] Fourth release as command line tool on GitHub
-
 
 ## Phase 5: Collaboration
 

@@ -1,9 +1,8 @@
 use logos::Logos;
 
-// https://stackoverflow.com/questions/11229080/regex-for-matching-a-music-chord
-
 #[derive(Logos, Debug, PartialEq)]
 pub enum Token {
+    // https://stackoverflow.com/questions/11229080/regex-for-matching-a-music-chord
     #[regex(
         r"[A-G](b|#)?(mMaj|Maj|min|m|sus|dim|aug)?(1[0-2]|[1-9])?(/[A-G](b|#)?)?",
         priority = 2
@@ -19,7 +18,8 @@ pub enum Token {
     #[regex("\n|\r\n")]
     NewLine,
 
-    #[regex("[a-zA-Z -]*")]
+    // TODO: Look into multi-lingual lyric lexer: https://www.regular-expressions.info/unicode.html#prop
+    #[regex("[a-zA-Z -'\",]*")]
     Lyrics,
 }
 
